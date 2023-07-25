@@ -10,10 +10,3 @@
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-use App\Enums\CurrencyEnum;
-
-Route::get('/', function () {
-    dd(CurrencyEnum::getRandomName());
-    dd(CurrencyEnum::getRandomName());
-});

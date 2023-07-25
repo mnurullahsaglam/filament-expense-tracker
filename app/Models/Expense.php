@@ -12,9 +12,14 @@ class Expense extends Model
 
     protected $fillable = [
         'category_id',
+        'date',
         'name',
         'currency',
         'amount',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
     ];
 
     public function category(): BelongsTo

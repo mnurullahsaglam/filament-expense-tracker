@@ -4,13 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -20,27 +21,20 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Kategori';
+
+    protected static ?string $pluralLabel = 'Kategoriler';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label('Adı')
                     ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) => $set('slug', Str::slug($state))),
-
-                TextInput::make('slug')
-                    ->disabled()
-                    ->required()
-                    ->unique(Category::class, 'slug', fn($record) => $record),
-
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn(?Category $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn(?Category $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->maxLength(255)
+                    ->unique(ignorable: true)
+                    ->autofocus(),
             ]);
     }
 
@@ -49,12 +43,26 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Adı')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('slug')
-                    ->searchable()
+                TextColumn::make('incomes_count')
+                    ->label('Gelir Sayısı')
+                    ->counts('incomes')
                     ->sortable(),
+
+                TextColumn::make('expenses_count')
+                    ->label('Gider Sayısı')
+                    ->counts('expenses')
+                    ->sortable(),
+            ])
+            ->actions([
+                EditAction::make(),
+                DeleteAction::make()
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make()
             ]);
     }
 
@@ -69,6 +77,6 @@ class CategoryResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'slug'];
+        return ['name'];
     }
 }

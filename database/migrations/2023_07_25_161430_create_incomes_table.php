@@ -11,10 +11,14 @@ return new class extends Migration {
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
+
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
+
+            $table->date('date');
             $table->string('name');
             $table->enum('currency', CurrencyEnum::getNames());
             $table->unsignedInteger('amount')->default(0);
+
             $table->timestamps();
         });
     }

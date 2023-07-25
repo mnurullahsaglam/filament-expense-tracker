@@ -6,7 +6,6 @@ use App\Enums\CurrencyEnum;
 use App\Models\Category;
 use App\Models\Income;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class IncomeFactory extends Factory
 {
@@ -16,11 +15,10 @@ class IncomeFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
+            'date' => $this->faker->date(),
             'name' => $this->faker->name(),
             'currency' => CurrencyEnum::getRandomName(),
             'amount' => $this->faker->randomNumber(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ];
     }
 }

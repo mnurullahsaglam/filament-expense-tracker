@@ -10,7 +10,12 @@ enum CurrencyEnum: string
 
     public static function getValues(): array
     {
-        return array_column(self::cases(), 'value');
+        $values = [];
+        foreach (self::cases() as $case) {
+            $values[$case->name] = $case->value;
+        }
+
+        return $values;
     }
 
     public static function getNames(): array
