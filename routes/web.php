@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Enums\CurrencyEnum;
+
 Route::get('/', function () {
-    return view('welcome');
+    dd(CurrencyEnum::getRandomName());
+    dd(CurrencyEnum::getRandomName());
 });
