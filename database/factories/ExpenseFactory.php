@@ -15,10 +15,10 @@ class ExpenseFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'date' => $this->faker->date(),
-            'name' => $this->faker->name(),
+            'date' => fake()->date(),
+            'name' => fake()->name(),
             'currency' => CurrencyEnum::getRandomName(),
-            'amount' => $this->faker->word(),
+            'amount' => fake()->numberBetween(1, 1000),
         ];
     }
 }

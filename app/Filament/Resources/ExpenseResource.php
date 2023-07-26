@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\CurrencyEnum;
 use App\Filament\Resources\ExpenseResource\Pages;
+use App\Filament\Resources\ExpenseResource\Widgets\StatsOverview;
 use App\Models\Expense;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -108,5 +109,12 @@ class ExpenseResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class,
+        ];
     }
 }
