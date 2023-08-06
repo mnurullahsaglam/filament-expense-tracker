@@ -11,7 +11,7 @@ class ListIncomes extends ListRecords
 {
     protected static string $resource = IncomeResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             CreateAction::make(),
